@@ -4,12 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-DesafioBaltaBlazorIBGE-3325c1eb-6eea-4d24-9a00-eedb64ad681b</UserSecretsId>
+    <UserSecretsId>aspnet-DesafioBaltaBlazorIBGE-1f562f57-feff-4a3b-be45-c1f51ac41612</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Client\DesafioBaltaBlazorIBGE.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
