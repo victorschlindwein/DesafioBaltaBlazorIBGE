@@ -1,6 +1,6 @@
 using DesafioBaltaBlazorIBGE.Blazor.Components;
 using DesafioBaltaBlazorIBGE.Blazor.Components.Account;
-using DesafioBaltaBlazorIBGE.Data.Repositories;
+using DesafioBaltaBlazorIBGE.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

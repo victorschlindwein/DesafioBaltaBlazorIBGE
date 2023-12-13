@@ -1,6 +1,6 @@
 using DesafioBaltaBlazorIBGE.Blazor.Components.Account.Pages;
 using DesafioBaltaBlazorIBGE.Blazor.Components.Account.Pages.Manage;
-using DesafioBaltaBlazorIBGE.Data.Repositories;
+using DesafioBaltaBlazorIBGE.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

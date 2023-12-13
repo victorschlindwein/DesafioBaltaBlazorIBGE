@@ -1,6 +1,6 @@
 ﻿using DesafioBaltaBlazorIBGE.Core.Models;
 
-namespace DesafioBaltaBlazorIBGE.UseCases.Interfaces
+namespace DesafioBaltaBlazorIBGE.UseCases.Repositories
 {
     public interface IIbgeRepository
     {

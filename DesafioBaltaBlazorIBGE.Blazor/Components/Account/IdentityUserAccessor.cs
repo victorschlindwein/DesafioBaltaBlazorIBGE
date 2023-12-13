@@ -1,4 +1,4 @@
-using DesafioBaltaBlazorIBGE.Data.Repositories;
+using DesafioBaltaBlazorIBGE.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace DesafioBaltaBlazorIBGE.Blazor.Components.Account

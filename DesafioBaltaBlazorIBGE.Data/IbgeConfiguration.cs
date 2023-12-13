@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DesafioBaltaBlazorIBGE.Data.Repositories
+namespace DesafioBaltaBlazorIBGE.Data
 {
     public class IbgeConfiguration : IEntityTypeConfiguration<Ibge>
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace DesafioBaltaBlazorIBGE.Data.Repositories
+namespace DesafioBaltaBlazorIBGE.Data
 {
     public class ApplicationUser : IdentityUser
     {
