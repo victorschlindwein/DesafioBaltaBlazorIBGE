@@ -1,7 +1,7 @@
-﻿using DesafioBaltaBlazorIBGE.Data.Data;
-using DesafioBaltaBlazorIBGE.Core.Models;
+﻿using DesafioBaltaBlazorIBGE.Core.Models;
 using DesafioBaltaBlazorIBGE.UseCases.Interfaces;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace DesafioBaltaBlazorIBGE.Data.Repositories
 {
@@ -22,7 +22,7 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
 
         public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken)
         {
-            var ibges = await _context.Ibges.ToListAsync(cancellationToken);               
+            var ibges = await _context.Ibges.ToListAsync(cancellationToken);
             return ibges;
         }
 
