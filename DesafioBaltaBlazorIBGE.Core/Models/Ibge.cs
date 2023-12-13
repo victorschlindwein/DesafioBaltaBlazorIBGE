@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DesafioBaltaBlazorIBGE.Models
+namespace DesafioBaltaBlazorIBGE.Core.Models
 {
     public class Ibge
     {

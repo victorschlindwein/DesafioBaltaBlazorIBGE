@@ -4,18 +4,16 @@
 
 <h3>GetCitiesByName</h3>
 
-@if (!Ibges.Any())
-{
-    <div class="mb-3">
-        <label class="form-label">Buscar por Cidade</label>
-        <input type="text" class="form-control" @bind="Model.State" />
-        <br />
-        <button class="btn btn-info" @onclick="() => GetByStateAsync(Model.State) ">
-            BUSCAR
-        </button>
-    </div>
-}
-else if (_loading)
+<div class="mb-3">
+    <label class="form-label">Buscar por Cidade</label>
+    <input type="text" class="form-control" @bind="Model.City" />
+    <br />
+    <button class="btn btn-info" @onclick="() => GetByCityAsync(Model.City) ">
+        BUSCAR
+    </button>
+</div>
+
+@if (_loading)
 {
     <Loading />
 }
@@ -24,9 +22,9 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Categoria</th>
+                <th>Código IBGE</th>
+                <th>UF</th>
+                <th>Cidade</th>
                 <th></th>
             </tr>
         </thead>
@@ -58,7 +56,7 @@ else
     private Ibge? Model = new();
     private bool _loading = false;
 
-    public async Task GetByStateAsync(string name)
+    public async Task GetByCityAsync(string name)
     {
         _loading = true;
         StateHasChanged();
@@ -68,7 +66,7 @@ else
             Ibges = await Context
                 .Ibges
                 .AsNoTracking()
-                .Where(x => x.City == name)
+                .Where(x => x.City.Contains(name))
                 .ToListAsync();
 
         }

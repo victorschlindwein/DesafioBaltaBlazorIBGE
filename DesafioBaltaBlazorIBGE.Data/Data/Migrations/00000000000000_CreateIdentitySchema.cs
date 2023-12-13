@@ -3,7 +3,7 @@ using System;
 
 #nullable disable
 
-namespace DesafioBaltaBlazorIBGE.Migrations
+namespace DesafioBaltaBlazorIBGE.Data.Migrations
 {
     /// <inheritdoc />
     public partial class CreateIdentitySchema : Migration

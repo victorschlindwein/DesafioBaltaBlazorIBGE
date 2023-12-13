@@ -1,8 +1,8 @@
-﻿using DesafioBaltaBlazorIBGE.Models;
+﻿using DesafioBaltaBlazorIBGE.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DesafioBaltaBlazorIBGE.Data
+namespace DesafioBaltaBlazorIBGE.Data.Data
 {
     public class IbgeConfiguration : IEntityTypeConfiguration<Ibge>
     {

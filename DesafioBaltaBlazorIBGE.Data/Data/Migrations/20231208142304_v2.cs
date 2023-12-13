@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DesafioBaltaBlazorIBGE.Migrations
+namespace DesafioBaltaBlazorIBGE.Data.Migrations
 {
     /// <inheritdoc />
     public partial class v2 : Migration
