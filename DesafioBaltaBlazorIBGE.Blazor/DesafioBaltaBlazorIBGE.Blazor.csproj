@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-DesafioBaltaBlazorIBGE-1f562f57-feff-4a3b-be45-c1f51ac41612</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Core\DesafioBaltaBlazorIBGE.Core.csproj" />
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Data\DesafioBaltaBlazorIBGE.Data.csproj" />
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.UseCases.csproj" />
+  </ItemGroup>
+
+</Project>
