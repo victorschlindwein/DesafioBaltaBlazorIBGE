@@ -1,6 +1,5 @@
-﻿using DesafioBaltaBlazorIBGE.Core.Interfaces;
-using DesafioBaltaBlazorIBGE.Core.Models;
-using DesafioBaltaBlazorIBGE.UseCases.Repositories;
+﻿using DesafioBaltaBlazorIBGE.Core.Models;
+using DesafioBaltaBlazorIBGE.UseCases.Interfaces;
 
 namespace DesafioBaltaBlazorIBGE.Data.Services
 {

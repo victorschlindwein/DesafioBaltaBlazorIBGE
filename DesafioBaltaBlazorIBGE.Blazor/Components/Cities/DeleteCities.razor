@@ -1,0 +1,60 @@
+﻿@page "/cities/delete/{id:int}"
+
+@using DesafioBaltaBlazorIBGE.Data.Repositories
+@using DesafioBaltaBlazorIBGE.Data
+
+@inject ApplicationDbContext Context
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+
+<h3>@Model?.City</h3>
+
+<EditForm Model="@Model" OnValidSubmit="HandleSubmitAsync">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">UF</label>
+        <InputText id="UF" type="text" class="form-control" @bind-Value="Model.State" />
+        <ValidationMessage For="@(() => Model.State)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cidade</label>
+        <InputText id="CityName" type="text" class="form-control" @bind-Value="Model.City" />
+        <ValidationMessage For="@(() => Model.City)" />
+    </div>
+
+    <button class="btn btn-danger" type="submit">
+        DELETE
+    </button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Ibge Model { get; set; } = new();
+    private bool? _errorMessage = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await Context.Ibges.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+    }
+
+    async Task HandleSubmitAsync()
+    {
+        try
+        {
+            var ibge = await Context.Ibges.FirstOrDefaultAsync(x => x.Id == Id);
+
+            Context.Ibges.Remove(ibge);
+            await Context.SaveChangesAsync();
+            NavigationManager.NavigateTo($"/cities");
+        }
+        catch
+        {
+            _errorMessage = false;
+        }
+    }
+}

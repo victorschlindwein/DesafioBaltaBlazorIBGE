@@ -20,7 +20,7 @@
 {
     <Loading />
 }
-else
+else if (Ibges.Any())
 {
     <table class="table">
         <thead>
@@ -39,11 +39,11 @@ else
                     <td>@item.State</td>
                     <td>@item.City</td>
                     <td>
-                        <a href="/products/edit/@item.Id" class="btn btn-primary">
+                        <a href="/cities/edit/@item.Id" class="btn btn-primary">
                             EDITAR
                         </a>
                         &nbsp;
-                        <a href="/products/delete/@item.Id" class="btn btn-danger">
+                        <a href="/cities/delete/@item.Id" class="btn btn-danger">
                             EXCLUIR
                         </a>
                     </td>
@@ -52,16 +52,22 @@ else
         </tbody>
     </table>
 }
+else if (_searchClicked)
+{
+    <p>Não foram encontrados registros por essa busca</p>
+}
 
 @code {
 
     public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
     private Ibge? Model = new();
     private bool _loading = false;
+    private bool _searchClicked = false;
 
     public async Task GetByCityAsync(string name)
     {
         _loading = true;
+        _searchClicked = true;
         StateHasChanged();
         try
         {

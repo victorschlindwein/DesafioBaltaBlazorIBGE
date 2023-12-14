@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioBaltaBlazorIBGE.Core", "DesafioBaltaBlazorIBGE.Core\DesafioBaltaBlazorIBGE.Core.csproj", "{EEE7CC8C-E300-43F7-A40C-3C3CF631A695}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioBaltaBlazorIBGE.Data", "DesafioBaltaBlazorIBGE.Data\DesafioBaltaBlazorIBGE.Data.csproj", "{E7B1CAD6-739E-4FAA-801E-340038C84B70}"
-	ProjectSection(ProjectDependencies) = postProject
-		{86A4B858-A83E-4A46-A65E-544EE6CF56C4} = {86A4B858-A83E-4A46-A65E-544EE6CF56C4}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioBaltaBlazorIBGE.UseCases", "DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.UseCases.csproj", "{86A4B858-A83E-4A46-A65E-544EE6CF56C4}"
 EndProject
