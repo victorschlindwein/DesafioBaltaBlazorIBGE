@@ -18,9 +18,12 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<ICreateCityUseCase, CreateCityUseCase>();
+builder.Services.AddScoped<IUpdateCityUseCase, UpdateCityUseCase>();
+builder.Services.AddScoped<IGetCityByIdUseCase, GetCityByIdUseCase>();
 builder.Services.AddScoped<IIbgeRepository, IbgeRepository>();
 builder.Services.AddScoped<CreateCityUseCase>();
-builder.Services.AddScoped<EditCityUseCase>();
+builder.Services.AddScoped<UpdateCityUseCase>();
 builder.Services.AddScoped<GetCityByIdUseCase>();
 
 builder.Services.AddAuthentication(options =>

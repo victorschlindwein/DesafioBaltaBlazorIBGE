@@ -15,6 +15,11 @@
     <button type="button" class="btn btn-light" onclick="@GetByCity">
         Buscar por Cidade
     </button>
+
+    <button type="button" class="btn btn-light" onclick="@GetById">
+        Buscar por Id
+    </button>
+
     <button type="button" class="btn btn-light" onclick="@CreateCity">
         Cadastrar
     </button>
@@ -30,6 +35,9 @@
         break;
     case Options.GetByCity:
         <GetCitiesByName />
+        break;
+    case Options.GetById:
+        <GetCitiesById />
         break;
     case Options.CreateCity:
         <CreateCities />
@@ -50,6 +58,7 @@
         List,
         GetByState,
         GetByCity,
+        GetById,
         CreateCity
     }
 
@@ -64,6 +73,10 @@
     private void GetByCity()
     {
         _showComponent = Options.GetByCity;
+    }
+    private void GetById()
+    {
+        _showComponent = Options.GetById;
     }
     private void CreateCity()
     {

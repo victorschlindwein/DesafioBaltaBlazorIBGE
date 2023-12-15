@@ -3,7 +3,7 @@ using DesafioBaltaBlazorIBGE.Application.Interfaces;
 
 namespace DesafioBaltaBlazorIBGE.Application.UseCases
 {
-    public class CreateCityUseCase
+    public class CreateCityUseCase : ICreateCityUseCase
     {
         private readonly IIbgeRepository _ibgeRepository;
 
