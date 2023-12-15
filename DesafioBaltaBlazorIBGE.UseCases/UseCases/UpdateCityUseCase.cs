@@ -3,11 +3,11 @@ using DesafioBaltaBlazorIBGE.Domain.Models;
 
 namespace DesafioBaltaBlazorIBGE.Application.UseCases
 {
-    public class EditCityUseCase
+    public class UpdateCityUseCase : IUpdateCityUseCase
     {
         private readonly IIbgeRepository _ibgeRepository;
 
-        public EditCityUseCase(IIbgeRepository ibgeRepository)
+        public UpdateCityUseCase(IIbgeRepository ibgeRepository)
         {
             _ibgeRepository = ibgeRepository ?? throw new ArgumentNullException(nameof(ibgeRepository));
         }

@@ -1,0 +1,88 @@
+﻿@using DesafioBaltaBlazorIBGE.Application.Interfaces
+@using DesafioBaltaBlazorIBGE.Data.Repositories
+@using DesafioBaltaBlazorIBGE.Data
+
+@inject IGetCityByIdUseCase GetCityByIdUseCase
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+
+<h3>GetCitiesById</h3>
+
+<div class="mb-3">
+    <label class="form-label">Buscar por Cidade</label>
+    <input type="number" class="form-control" @bind="Model.Id" />
+    <br />
+    <button class="btn btn-info" @onclick="() => HandleAsync(Model.Id) ">
+        BUSCAR
+    </button>
+</div>
+
+@if (_loading)
+{
+    <Loading />
+}
+else if (Ibges.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código IBGE</th>
+                <th>UF</th>
+                <th>Cidade</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Ibges)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.State</td>
+                    <td>@item.City</td>
+                    <td>
+                        <a href="/cities/edit/@item.Id" class="btn btn-primary">
+                            EDITAR
+                        </a>
+                        &nbsp;
+                        <a href="/cities/delete/@item.Id" class="btn btn-danger">
+                            EXCLUIR
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (_searchClicked)
+{
+    <p>Não foram encontrados registros por essa busca</p>
+}
+
+@code {
+    private Ibge Model = new();
+    private List<Ibge> Ibges = new List<Ibge>();
+    private bool _loading = false;
+    private bool _searchClicked = false;
+    CancellationToken cancellationToken;
+
+    public async Task HandleAsync(int id)
+    {
+        _loading = true;
+        _searchClicked = true;
+        try
+        {
+            var a = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
+            if(a is null)
+            {
+                Ibges.DefaultIfEmpty();
+                return;
+            }
+            Ibges.Add(a);
+        }
+        catch { }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

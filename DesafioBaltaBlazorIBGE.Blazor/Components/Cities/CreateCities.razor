@@ -1,8 +1,8 @@
 ﻿@using DesafioBaltaBlazorIBGE.Data.Repositories
 @using DesafioBaltaBlazorIBGE.Data
-@using DesafioBaltaBlazorIBGE.Application.UseCases;
+@using DesafioBaltaBlazorIBGE.Application.Interfaces;
 
-@inject CreateCityUseCase CreateCityUseCase
+@inject ICreateCityUseCase CreateCityUseCase
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]

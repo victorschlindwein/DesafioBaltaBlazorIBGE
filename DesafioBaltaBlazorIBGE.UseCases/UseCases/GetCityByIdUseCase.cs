@@ -1,11 +1,9 @@
-﻿
-
-using DesafioBaltaBlazorIBGE.Application.Interfaces;
+﻿using DesafioBaltaBlazorIBGE.Application.Interfaces;
 using DesafioBaltaBlazorIBGE.Domain.Models;
 
 namespace DesafioBaltaBlazorIBGE.Application.UseCases
 {
-    public class GetCityByIdUseCase
+    public class GetCityByIdUseCase : IGetCityByIdUseCase
     {
         private readonly IIbgeRepository? _ibgeRepository;
 

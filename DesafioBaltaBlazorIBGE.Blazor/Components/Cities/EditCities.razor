@@ -2,10 +2,10 @@
 
 @using DesafioBaltaBlazorIBGE.Data.Repositories
 @using DesafioBaltaBlazorIBGE.Data
-@using DesafioBaltaBlazorIBGE.Application.UseCases
+@using DesafioBaltaBlazorIBGE.Application.Interfaces
 
-@inject EditCityUseCase EditCityUseCase
-@inject GetCityByIdUseCase GetCityByIdUseCase
+@inject IUpdateCityUseCase UpdateCityUseCase
+@inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
@@ -48,7 +48,7 @@
     {
         try
         {
-            await EditCityUseCase.UpdateIbge(Model.Id, Model);       
+            await UpdateCityUseCase.UpdateIbge(Model.Id, Model);
         }
         catch
         {
