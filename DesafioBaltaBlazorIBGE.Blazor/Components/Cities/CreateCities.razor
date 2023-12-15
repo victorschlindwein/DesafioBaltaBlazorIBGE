@@ -1,7 +1,8 @@
 ﻿@using DesafioBaltaBlazorIBGE.Data.Repositories
 @using DesafioBaltaBlazorIBGE.Data
+@using DesafioBaltaBlazorIBGE.Application.UseCases;
 
-@inject ApplicationDbContext Context
+@inject CreateCityUseCase CreateCityUseCase
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
@@ -30,19 +31,16 @@
 
 @code {
     private Ibge Model { get; set; } = new();
-    private bool? _errorMessage = null;
 
     async Task HandleSubmitAsync()
     {
         try
         {
-            await Context.Ibges.AddAsync(Model);
-            await Context.SaveChangesAsync();
-            NavigationManager.NavigateTo($"/cities");
+            await CreateCityUseCase.CreateIbgeAsync(Model);
         }
         catch
         {
-            _errorMessage = false;
+            
         }
     }
 }

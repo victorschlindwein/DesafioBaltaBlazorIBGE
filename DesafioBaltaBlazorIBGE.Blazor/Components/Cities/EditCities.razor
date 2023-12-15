@@ -2,8 +2,10 @@
 
 @using DesafioBaltaBlazorIBGE.Data.Repositories
 @using DesafioBaltaBlazorIBGE.Data
+@using DesafioBaltaBlazorIBGE.Application.UseCases
 
-@inject ApplicationDbContext Context
+@inject EditCityUseCase EditCityUseCase
+@inject GetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
@@ -35,29 +37,22 @@
     public int Id { get; set; }
 
     private Ibge Model { get; set; } = new();
-    private bool? _errorMessage = null;
+    CancellationToken cancellationToken;
 
     protected override async Task OnInitializedAsync()
     {
-        Model = await Context.Ibges.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+        Model = await GetCityByIdUseCase.GetByIdAsync(Id, cancellationToken);
     }
 
     async Task HandleSubmitAsync()
     {
         try
         {
-            var ibge = await Context.Ibges.FirstOrDefaultAsync(x => x.Id == Id);
-
-            ibge.State = Model.State;
-            ibge.City = Model.City;
-
-            Context.Ibges.Update(ibge);
-            await Context.SaveChangesAsync();
-            NavigationManager.NavigateTo($"/cities");
+            await EditCityUseCase.UpdateIbge(Model.Id, Model);       
         }
         catch
         {
-            _errorMessage = false;
+            
         }
     }
 }

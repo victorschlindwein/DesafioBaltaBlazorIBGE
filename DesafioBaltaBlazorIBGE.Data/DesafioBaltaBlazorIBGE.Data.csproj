@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.UseCases.csproj" />
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.Application.csproj" />
   </ItemGroup>
 
 </Project>
