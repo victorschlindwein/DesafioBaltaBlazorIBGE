@@ -1,5 +1,5 @@
-﻿using DesafioBaltaBlazorIBGE.Core.Models;
-using DesafioBaltaBlazorIBGE.UseCases.Repositories;
+﻿using DesafioBaltaBlazorIBGE.Domain.Models;
+using DesafioBaltaBlazorIBGE.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 

@@ -1,4 +1,5 @@
-﻿using DesafioBaltaBlazorIBGE.Core.Models;
+﻿
+using DesafioBaltaBlazorIBGE.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

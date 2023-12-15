@@ -1,0 +1,58 @@
+﻿@page "/cities/edit/{id:int}"
+
+@using DesafioBaltaBlazorIBGE.Data.Repositories
+@using DesafioBaltaBlazorIBGE.Data
+@using DesafioBaltaBlazorIBGE.Application.UseCases
+
+@inject EditCityUseCase EditCityUseCase
+@inject GetCityByIdUseCase GetCityByIdUseCase
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+
+<h3>@Model?.City</h3>
+
+<EditForm Model="@Model" OnValidSubmit="HandleSubmitAsync">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">UF</label>
+        <InputText id="UF" type="text" class="form-control" @bind-Value="Model.State" />
+        <ValidationMessage For="@(() => Model.State)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cidade</label>
+        <InputText id="CityName" type="text" class="form-control" @bind-Value="Model.City" />
+        <ValidationMessage For="@(() => Model.City)" />
+    </div>
+
+    <button class="btn btn-success" type="submit">
+        EDIT
+    </button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Ibge Model { get; set; } = new();
+    CancellationToken cancellationToken;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await GetCityByIdUseCase.GetByIdAsync(Id, cancellationToken);
+    }
+
+    async Task HandleSubmitAsync()
+    {
+        try
+        {
+            await EditCityUseCase.UpdateIbge(Model.Id, Model);       
+        }
+        catch
+        {
+            
+        }
+    }
+}

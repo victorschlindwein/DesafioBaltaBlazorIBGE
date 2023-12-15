@@ -1,6 +1,9 @@
+using DesafioBaltaBlazorIBGE.Application.Interfaces;
+using DesafioBaltaBlazorIBGE.Application.UseCases;
 using DesafioBaltaBlazorIBGE.Blazor.Components;
 using DesafioBaltaBlazorIBGE.Blazor.Components.Account;
 using DesafioBaltaBlazorIBGE.Data;
+using DesafioBaltaBlazorIBGE.Data.Repositories;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +18,10 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<IIbgeRepository, IbgeRepository>();
+builder.Services.AddScoped<CreateCityUseCase>();
+builder.Services.AddScoped<EditCityUseCase>();
+builder.Services.AddScoped<GetCityByIdUseCase>();
 
 builder.Services.AddAuthentication(options =>
     {

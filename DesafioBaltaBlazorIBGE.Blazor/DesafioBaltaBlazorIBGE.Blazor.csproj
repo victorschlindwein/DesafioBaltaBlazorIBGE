@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Core\DesafioBaltaBlazorIBGE.Core.csproj" />
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Core\DesafioBaltaBlazorIBGE.Domain.csproj" />
     <ProjectReference Include="..\DesafioBaltaBlazorIBGE.Data\DesafioBaltaBlazorIBGE.Data.csproj" />
-    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.UseCases.csproj" />
+    <ProjectReference Include="..\DesafioBaltaBlazorIBGE.UseCases\DesafioBaltaBlazorIBGE.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using DesafioBaltaBlazorIBGE.Core.Models;
+﻿using DesafioBaltaBlazorIBGE.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
