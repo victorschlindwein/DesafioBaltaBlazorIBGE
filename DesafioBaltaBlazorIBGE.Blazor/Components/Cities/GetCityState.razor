@@ -1,12 +1,12 @@
 ﻿@page "/cities/state"
 
-@inject ApplicationDbContext Context
+@inject IGetCityByStateUseCase GetCityByStateUseCase
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>GetCitiesByState</h3>
+<h3>Buscar por UF</h3>
 
 <div class="mb-3">
     <label class="form-label">Buscar por UF</label>
@@ -55,7 +55,7 @@ else if (Ibges.Any())
 }
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros por essa busca</p>
+    <p>Não foram encontrados registros para essa busca</p>
 }
 
 
@@ -65,6 +65,7 @@ else if (_searchClicked)
     private Ibge? Model = new();
     private bool _loading = false;
     private bool _searchClicked = false;
+    CancellationToken cancellationToken;
 
     public async Task GetByStateAsync(string state)
     {
@@ -73,15 +74,12 @@ else if (_searchClicked)
         StateHasChanged();
         try
         {
-
-            Ibges = await Context
-                .Ibges
-                .AsNoTracking()
-                .Where(x => x.State == state)
-                .ToListAsync();
-
+            Ibges = await GetCityByStateUseCase.GetStateIbge(state, cancellationToken);
         }
-        catch { }
+        catch
+        {
+            
+        }
         finally
         {
             _loading = false;

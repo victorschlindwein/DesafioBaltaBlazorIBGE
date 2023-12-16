@@ -1,14 +1,15 @@
 ﻿@page "/cities/create"
 
 @inject ICreateCityUseCase CreateCityUseCase
+@inject NavigationManager NavigationManager
+@inject RecentlyCreatedIdService RecentlyCreatedIdService
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
-
 @attribute [Authorize]
 
 <CitiesMenu />
 
-<h3>New City</h3>
+<h3>Novo cadastro do IBGE</h3>
 
 <EditForm Model="@Model" OnValidSubmit="HandleSubmitAsync">
     <DataAnnotationsValidator />
@@ -26,7 +27,7 @@
     </div>
 
     <button class="btn btn-success" type="submit">
-        SAVE
+        SALVAR
     </button>
 </EditForm>
 
@@ -41,11 +42,15 @@
         }
         catch
         {
-            
+
         }
         finally
         {
-            
+            int createdId = Model.Id;
+
+            RecentlyCreatedIdService.RecentlyCreatedId = createdId;
+
+            NavigationManager.NavigateTo("/cities/id");
         }
     }
 }

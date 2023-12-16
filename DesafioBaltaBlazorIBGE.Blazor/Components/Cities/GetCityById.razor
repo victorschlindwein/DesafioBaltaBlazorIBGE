@@ -1,12 +1,13 @@
 ﻿@page "/cities/id"
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
+@inject RecentlyCreatedIdService RecentlyCreatedIdService
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>GetCitiesById</h3> 
+<h3>Buscar pelo código IBGE</h3> 
 
 <div class="mb-3">
     <label class="form-label">Buscar por Cidade</label>
@@ -53,9 +54,14 @@ else if (Ibges.Any())
         </tbody>
     </table>
 }
+else if (RecentlyCreatedIdService.RecentlyCreatedId != 0)
+{
+    var cityId = RecentlyCreatedIdService.RecentlyCreatedId;
+    HandleAsync(cityId);
+}
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros por essa busca</p>
+    <p>Não foram encontrados registros para essa busca</p>
 }
 
 @code {
@@ -71,18 +77,22 @@ else if (_searchClicked)
         _searchClicked = true;
         try
         {
-            var a = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
-            if(a is null)
+            var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
+            if (cityId is null)
             {
                 Ibges.DefaultIfEmpty();
                 return;
             }
-            Ibges.Add(a);
+            Ibges.Add(cityId);
         }
-        catch { }
+        catch
+        {
+            
+        }
         finally
         {
             _loading = false;
+            StateHasChanged();
         }
     }
 }

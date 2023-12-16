@@ -1,10 +1,11 @@
-﻿@page "/cities/delete/{id:int}"
+﻿@page "/cities/edit/{id:int}"
 
-@inject ApplicationDbContext Context
+@inject IUpdateCityUseCase UpdateCityUseCase
+@inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
+@inject RecentlyCreatedIdService RecentlyCreatedIdService
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
-
 @attribute [Authorize]
 
 <CitiesMenu />
@@ -26,8 +27,8 @@
         <ValidationMessage For="@(() => Model.City)" />
     </div>
 
-    <button class="btn btn-danger" type="submit">
-        DELETE
+    <button class="btn btn-success" type="submit">
+        EDITAR
     </button>
 </EditForm>
 
@@ -36,26 +37,30 @@
     public int Id { get; set; }
 
     private Ibge Model { get; set; } = new();
-    private bool? _errorMessage = null;
+    CancellationToken cancellationToken;
 
     protected override async Task OnInitializedAsync()
     {
-        Model = await Context.Ibges.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
+        Model = await GetCityByIdUseCase.GetByIdAsync(Id, cancellationToken);
     }
 
     async Task HandleSubmitAsync()
     {
         try
         {
-            var ibge = await Context.Ibges.FirstOrDefaultAsync(x => x.Id == Id);
-
-            Context.Ibges.Remove(ibge);
-            await Context.SaveChangesAsync();
-            NavigationManager.NavigateTo($"/cities");
+            await UpdateCityUseCase.UpdateIbge(Model.Id, Model);
         }
         catch
         {
-            _errorMessage = false;
+            
+        }
+        finally
+        {
+            int createdId = Model.Id;
+
+            RecentlyCreatedIdService.RecentlyCreatedId = createdId;
+
+            NavigationManager.NavigateTo("/cities/id");
         }
     }
 }
