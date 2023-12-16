@@ -1,9 +1,10 @@
-﻿@using DesafioBaltaBlazorIBGE.Data.Repositories
-@using DesafioBaltaBlazorIBGE.Data
+﻿@page "/cities/city"
 
 @inject ApplicationDbContext Context
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
+
+<CitiesMenu />
 
 <h3>GetCitiesByName</h3>
 
@@ -24,31 +25,31 @@ else if (Ibges.Any())
 {
     <table class="table">
         <thead>
-            <tr>
-                <th>Código IBGE</th>
-                <th>UF</th>
-                <th>Cidade</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Código IBGE</th>
+            <th>UF</th>
+            <th>Cidade</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Ibges)
-            {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.State</td>
-                    <td>@item.City</td>
-                    <td>
-                        <a href="/cities/edit/@item.Id" class="btn btn-primary">
-                            EDITAR
-                        </a>
-                        &nbsp;
-                        <a href="/cities/delete/@item.Id" class="btn btn-danger">
-                            EXCLUIR
-                        </a>
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Ibges)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.State</td>
+                <td>@item.City</td>
+                <td>
+                    <a href="/cities/edit/@item.Id" class="btn btn-primary">
+                        EDITAR
+                    </a>
+                    &nbsp;
+                    <a href="/cities/delete/@item.Id" class="btn btn-danger">
+                        EXCLUIR
+                    </a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 }

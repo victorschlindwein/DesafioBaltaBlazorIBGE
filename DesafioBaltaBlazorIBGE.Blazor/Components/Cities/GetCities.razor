@@ -1,6 +1,10 @@
-﻿@inject ApplicationDbContext Context
+﻿@page "/cities/list"
+
+@inject ApplicationDbContext Context
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
+
+<CitiesMenu />
 
 <h3>Cities</h3>
 @if (!Ibges.Any())
@@ -26,11 +30,11 @@ else
                     <td>@item.State</td>
                     <td>@item.City</td>
                     <td>
-                        <a href="/products/edit/@item.Id" class="btn btn-primary">
+                        <a href="/cities/edit/@item.Id" class="btn btn-primary">
                             EDITAR
                         </a>
                         &nbsp;
-                        <a href="/products/delete/@item.Id" class="btn btn-danger">
+                        <a href="/cities/delete/@item.Id" class="btn btn-danger">
                             EXCLUIR
                         </a>
                     </td>
