@@ -54,7 +54,7 @@ else if (Ibges.Any())
         </tbody>
     </table>
 }
-else if (RecentlyCreatedIdService.RecentlyCreatedId != 0)
+else if (RecentlyCreatedIdService.RecentlyCreatedId != 0 && Ibges.Count == 0 && !_searchClicked)
 {
     var cityId = RecentlyCreatedIdService.RecentlyCreatedId;
     HandleAsync(cityId);
@@ -77,6 +77,8 @@ else if (_searchClicked)
         _searchClicked = true;
         try
         {
+            Ibges.Clear();
+
             var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
             if (cityId is null)
             {

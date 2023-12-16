@@ -7,9 +7,7 @@ namespace DesafioBaltaBlazorIBGE.Application.UseCases
         private readonly IIbgeRepository _ibgeRepository;
 
         public DeleteCityUseCase(IIbgeRepository ibgeRepository)
-        {
-            _ibgeRepository = ibgeRepository ?? throw new ArgumentNullException(nameof(ibgeRepository));
-        }
+            => _ibgeRepository = ibgeRepository;
 
         public async Task<bool> Delete(int id)
         {
