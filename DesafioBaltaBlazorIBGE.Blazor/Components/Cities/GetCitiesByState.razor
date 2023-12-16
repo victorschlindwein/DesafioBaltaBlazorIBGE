@@ -1,8 +1,10 @@
-﻿@using DesafioBaltaBlazorIBGE.Data.Repositories
+﻿@page "/cities/state"
 
 @inject ApplicationDbContext Context
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
+
+<CitiesMenu />
 
 <h3>GetCitiesByState</h3>
 

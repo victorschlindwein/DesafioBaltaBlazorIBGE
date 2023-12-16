@@ -1,12 +1,12 @@
-﻿@using DesafioBaltaBlazorIBGE.Application.Interfaces
-@using DesafioBaltaBlazorIBGE.Data.Repositories
-@using DesafioBaltaBlazorIBGE.Data
+﻿@page "/cities/id"
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
-<h3>GetCitiesById</h3>
+<CitiesMenu />
+
+<h3>GetCitiesById</h3> 
 
 <div class="mb-3">
     <label class="form-label">Buscar por Cidade</label>

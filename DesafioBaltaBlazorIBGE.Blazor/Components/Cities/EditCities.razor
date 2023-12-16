@@ -1,14 +1,14 @@
 ﻿@page "/cities/edit/{id:int}"
 
-@using DesafioBaltaBlazorIBGE.Data.Repositories
-@using DesafioBaltaBlazorIBGE.Data
-@using DesafioBaltaBlazorIBGE.Application.Interfaces
-
 @inject IUpdateCityUseCase UpdateCityUseCase
 @inject IGetCityByIdUseCase GetCityByIdUseCase
-@inject NavigationManager NavigationManager
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
+
+@attribute [Authorize]
+
+<CitiesMenu />
 
 <h3>@Model?.City</h3>
 

@@ -1,12 +1,13 @@
 ﻿@page "/cities/delete/{id:int}"
 
-@using DesafioBaltaBlazorIBGE.Data.Repositories
-@using DesafioBaltaBlazorIBGE.Data
-
 @inject ApplicationDbContext Context
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
+
+@attribute [Authorize]
+
+<CitiesMenu />
 
 <h3>@Model?.City</h3>
 
