@@ -1,18 +1,19 @@
-﻿@page "/cities/state"
+﻿@page "/cities/id"
 
-@inject ApplicationDbContext Context
+@inject IGetCityByIdUseCase GetCityByIdUseCase
+@inject RecentlyCreatedIdService RecentlyCreatedIdService
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>GetCitiesByState</h3>
+<h3>Buscar pelo código IBGE</h3> 
 
 <div class="mb-3">
-    <label class="form-label">Buscar por UF</label>
-    <input type="text" class="form-control" @bind="Model.State" />
+    <label class="form-label">Buscar por Cidade</label>
+    <input type="number" class="form-control" @bind="Model.Id" />
     <br />
-    <button class="btn btn-info" @onclick="() => GetByStateAsync(Model.State) ">
+    <button class="btn btn-info" @onclick="() => HandleAsync(Model.Id) ">
         BUSCAR
     </button>
 </div>
@@ -53,35 +54,43 @@ else if (Ibges.Any())
         </tbody>
     </table>
 }
+else if (RecentlyCreatedIdService.RecentlyCreatedId != 0 && Ibges.Count == 0 && !_searchClicked)
+{
+    var cityId = RecentlyCreatedIdService.RecentlyCreatedId;
+    HandleAsync(cityId);
+}
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros por essa busca</p>
+    <p>Não foram encontrados registros para essa busca</p>
 }
 
-
 @code {
-
-    public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
-    private Ibge? Model = new();
+    private Ibge Model = new();
+    private List<Ibge> Ibges = new List<Ibge>();
     private bool _loading = false;
     private bool _searchClicked = false;
+    CancellationToken cancellationToken;
 
-    public async Task GetByStateAsync(string state)
+    public async Task HandleAsync(int id)
     {
         _loading = true;
         _searchClicked = true;
-        StateHasChanged();
         try
         {
+            Ibges.Clear();
 
-            Ibges = await Context
-                .Ibges
-                .AsNoTracking()
-                .Where(x => x.State == state)
-                .ToListAsync();
-
+            var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
+            if (cityId is null)
+            {
+                Ibges.DefaultIfEmpty();
+                return;
+            }
+            Ibges.Add(cityId);
         }
-        catch { }
+        catch
+        {
+            
+        }
         finally
         {
             _loading = false;

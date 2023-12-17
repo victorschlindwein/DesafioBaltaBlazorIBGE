@@ -8,9 +8,7 @@ namespace DesafioBaltaBlazorIBGE.Application.UseCases
         private readonly IIbgeRepository _ibgeRepository;
 
         public UpdateCityUseCase(IIbgeRepository ibgeRepository)
-        {
-            _ibgeRepository = ibgeRepository ?? throw new ArgumentNullException(nameof(ibgeRepository));
-        }
+            => _ibgeRepository = ibgeRepository;
 
         public async Task<Ibge> UpdateIbge(int id, Ibge ibge)
             => await _ibgeRepository.UpdateIbge(id, ibge);

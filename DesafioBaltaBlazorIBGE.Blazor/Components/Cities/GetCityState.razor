@@ -1,18 +1,18 @@
-﻿@page "/cities/id"
+﻿@page "/cities/state"
 
-@inject IGetCityByIdUseCase GetCityByIdUseCase
+@inject IGetCityByStateUseCase GetCityByStateUseCase
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>GetCitiesById</h3> 
+<h3>Buscar por UF</h3>
 
 <div class="mb-3">
-    <label class="form-label">Buscar por Cidade</label>
-    <input type="number" class="form-control" @bind="Model.Id" />
+    <label class="form-label">Buscar por UF</label>
+    <input type="text" class="form-control" @bind="Model.State" />
     <br />
-    <button class="btn btn-info" @onclick="() => HandleAsync(Model.Id) ">
+    <button class="btn btn-info" @onclick="() => GetByStateAsync(Model.State) ">
         BUSCAR
     </button>
 </div>
@@ -55,34 +55,35 @@ else if (Ibges.Any())
 }
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros por essa busca</p>
+    <p>Não foram encontrados registros para essa busca</p>
 }
 
+
 @code {
-    private Ibge Model = new();
-    private List<Ibge> Ibges = new List<Ibge>();
+
+    public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
+    private Ibge? Model = new();
     private bool _loading = false;
     private bool _searchClicked = false;
     CancellationToken cancellationToken;
 
-    public async Task HandleAsync(int id)
+    public async Task GetByStateAsync(string state)
     {
         _loading = true;
         _searchClicked = true;
+        StateHasChanged();
         try
         {
-            var a = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
-            if(a is null)
-            {
-                Ibges.DefaultIfEmpty();
-                return;
-            }
-            Ibges.Add(a);
+            Ibges = await GetCityByStateUseCase.GetStateIbge(state, cancellationToken);
         }
-        catch { }
+        catch
+        {
+            
+        }
         finally
         {
             _loading = false;
+            StateHasChanged();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿@page "/cities/list"
 
-@inject ApplicationDbContext Context
+@inject IGetCitiesUseCase GetCitiesUseCase
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>Cities</h3>
+<h3>Lista de Cidades e UF</h3>
+
 @if (!Ibges.Any())
 {
     <Loading />
@@ -48,17 +49,21 @@ else
 @code 
 {
     public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
+    CancellationToken cancellationToken;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            Ibges = await Context
-                .Ibges
-                .AsNoTracking()
-                .ToListAsync();
+            Ibges = await GetCitiesUseCase.GetAllIbgeAsync(cancellationToken);
         }
         catch
-        { }
+        {
+            
+        }
+        finally
+        {
+
+        }
     }
 }

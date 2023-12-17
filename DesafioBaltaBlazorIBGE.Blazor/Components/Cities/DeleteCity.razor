@@ -1,11 +1,10 @@
-﻿@page "/cities/edit/{id:int}"
+﻿@page "/cities/delete/{id:int}"
 
-@inject IUpdateCityUseCase UpdateCityUseCase
+@inject IDeleteCityUseCase DeleteCityUseCase
 @inject IGetCityByIdUseCase GetCityByIdUseCase
-
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
-
 @attribute [Authorize]
 
 <CitiesMenu />
@@ -27,8 +26,8 @@
         <ValidationMessage For="@(() => Model.City)" />
     </div>
 
-    <button class="btn btn-success" type="submit">
-        EDIT
+    <button class="btn btn-danger" type="submit">
+        DELETE
     </button>
 </EditForm>
 
@@ -48,11 +47,15 @@
     {
         try
         {
-            await UpdateCityUseCase.UpdateIbge(Model.Id, Model);
+            await DeleteCityUseCase.Delete(Model.Id);
         }
         catch
         {
-            
+
+        }
+        finally
+        {
+            NavigationManager.NavigateTo("/cities/list");
         }
     }
 }
