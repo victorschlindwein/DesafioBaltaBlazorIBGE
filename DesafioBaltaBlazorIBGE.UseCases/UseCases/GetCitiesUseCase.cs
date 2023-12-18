@@ -10,7 +10,7 @@ namespace DesafioBaltaBlazorIBGE.Application.UseCases
         public GetCitiesUseCase(IIbgeRepository ibgeRepository)
             => _ibgeRepository = ibgeRepository;
 
-        public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken)
-            => await _ibgeRepository.GetAllIbgeAsync(cancellationToken);
+        public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip, int take)
+            => await _ibgeRepository.GetAllIbgeAsync(cancellationToken, skip, take);
     }
 }

@@ -1,9 +1,10 @@
-﻿using DesafioBaltaBlazorIBGE.Domain.Models;
+﻿using System.ComponentModel;
+using DesafioBaltaBlazorIBGE.Domain.Models;
 
 namespace DesafioBaltaBlazorIBGE.Application.Interfaces
 {
     public interface IGetCitiesUseCase
     {
-        Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken);
+        Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip, int take);
     }
 }

@@ -4,6 +4,7 @@
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
+@inject MessagesService MessagesService
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @attribute [Authorize]
@@ -49,10 +50,11 @@
         try
         {
             await UpdateCityUseCase.UpdateIbge(Model.Id, Model);
+            MessagesService.SendMessage("Cadastro editado com sucesso", true);
         }
-        catch
+        catch (Exception ex)
         {
-            
+            MessagesService.SendMessage($"Ocorreu um erro: {ex.Message}.", false);
         }
         finally
         {

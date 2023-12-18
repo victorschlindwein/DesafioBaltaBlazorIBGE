@@ -50,12 +50,15 @@ else
 {
     public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
     CancellationToken cancellationToken;
+    int skip = 0;
+    int take = 25;
 
     protected override async Task OnInitializedAsync()
     {
+
         try
         {
-            Ibges = await GetCitiesUseCase.GetAllIbgeAsync(cancellationToken);
+            Ibges = await GetCitiesUseCase.GetAllIbgeAsync(cancellationToken, skip, take);
         }
         catch
         {

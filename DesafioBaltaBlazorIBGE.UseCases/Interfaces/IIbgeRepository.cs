@@ -5,7 +5,7 @@ namespace DesafioBaltaBlazorIBGE.Application.Interfaces
     public interface IIbgeRepository
     {
         Task<Ibge> CreateIbgeAsync(Ibge ibge);
-        Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken);
+        Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip, int take);
         Task<Ibge> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<List<Ibge>> GetCityIbge(string city, CancellationToken cancellationToken);
         Task<List<Ibge>> GetStateIbge(string state, CancellationToken cancellationToken);

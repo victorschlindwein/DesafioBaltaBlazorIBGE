@@ -35,6 +35,7 @@ builder.Services.AddScoped<GetCityByIdUseCase>();
 builder.Services.AddScoped<GetCityByNameUseCase>();
 builder.Services.AddScoped<GetCityByStateUseCase>();
 builder.Services.AddSingleton<RecentlyCreatedIdService>();
+builder.Services.AddSingleton<MessagesService>();
 
 
 builder.Services.AddAuthentication(options =>
