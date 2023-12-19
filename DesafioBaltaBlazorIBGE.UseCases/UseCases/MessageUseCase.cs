@@ -1,6 +1,8 @@
-﻿namespace DesafioBaltaBlazorIBGE.Domain.Services
+﻿using DesafioBaltaBlazorIBGE.Application.Interfaces;
+
+namespace DesafioBaltaBlazorIBGE.Application.UseCases 
 {
-    public class MessagesService
+    public class MessageUseCase : IMessageService
     {
         public event Action<string, bool>? MessageSent;
 

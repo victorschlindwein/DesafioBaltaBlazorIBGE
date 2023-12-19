@@ -19,6 +19,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
+builder.Services.AddScoped<IMessageService, MessageUseCase>();
 builder.Services.AddScoped<ICreateCityUseCase, CreateCityUseCase>();
 builder.Services.AddScoped<IDeleteCityUseCase, DeleteCityUseCase>();
 builder.Services.AddScoped<IUpdateCityUseCase, UpdateCityUseCase>();
@@ -27,6 +29,7 @@ builder.Services.AddScoped<IGetCityByIdUseCase, GetCityByIdUseCase>();
 builder.Services.AddScoped<IGetCityByNameUseCase, GetCityByNameUseCase>();
 builder.Services.AddScoped<IGetCityByStateUseCase, GetCityByStateUseCase>();
 builder.Services.AddScoped<IIbgeRepository, IbgeRepository>();
+
 builder.Services.AddScoped<CreateCityUseCase>();
 builder.Services.AddScoped<DeleteCityUseCase>();
 builder.Services.AddScoped<UpdateCityUseCase>();
@@ -34,9 +37,9 @@ builder.Services.AddScoped<GetCitiesUseCase>();
 builder.Services.AddScoped<GetCityByIdUseCase>();
 builder.Services.AddScoped<GetCityByNameUseCase>();
 builder.Services.AddScoped<GetCityByStateUseCase>();
-builder.Services.AddSingleton<RecentlyCreatedIdService>();
-builder.Services.AddSingleton<MessagesService>();
+builder.Services.AddScoped<MessageUseCase>();
 
+builder.Services.AddSingleton<RecentlyCreatedIdService>();
 
 builder.Services.AddAuthentication(options =>
     {

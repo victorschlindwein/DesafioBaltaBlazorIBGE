@@ -2,20 +2,14 @@
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
+@inject MessageUseCase MessageUseCase
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
-@inject MessagesService MessagesService
 
 <CitiesMenu />
 
 <h3>Buscar pelo código IBGE</h3>
-
-@if (_success.HasValue)
-{
-    <div class="@_classCss">
-        @_message
-    </div>
-}
 
 <div class="mb-3">
     <label class="form-label">Buscar por Cidade</label>
@@ -25,6 +19,17 @@
         BUSCAR
     </button>
 </div>
+
+@if (_success.HasValue)
+{
+    <div class="@_classCss" role="alert">
+        @_message
+        @{
+            StateHasChanged();
+        }
+        ;
+    </div>
+}
 
 @if (_loading)
 {
@@ -76,7 +81,7 @@ else if (_searchClicked)
 
 @code {
     private Ibge Model = new();
-    private List<Ibge> Ibges = new List<Ibge>();
+    private List<Ibge> Ibges = new();
     private bool _loading = false;
     private bool _searchClicked = false;
     private bool? _success;
@@ -91,7 +96,7 @@ else if (_searchClicked)
         
         try
         {
-            MessagesService.MessageSent += UpdateMessage;
+            MessageUseCase.MessageSent += UpdateMessage;
 
             Ibges.Clear();
 
@@ -103,9 +108,9 @@ else if (_searchClicked)
             }
             Ibges.Add(cityId);
         }
-        catch
+        catch (Exception ex)
         {
-
+            MessageUseCase.SendMessage($"Ocorreu um erro: {ex.Message}.", false);
         }
         finally
         {
@@ -114,13 +119,16 @@ else if (_searchClicked)
         }
     }
 
-    private void UpdateMessage(string message, bool success)
+    private async void UpdateMessage(string message, bool success)
     {
-        _message = message;
-        _success = success;
-        
-        _classCss = success ? "alert alert-success" : "alert alert-danger";
+        await InvokeAsync(() =>
+        {
+            _message = message;
+            _success = success;
 
-        StateHasChanged();
+            _classCss = success ? "alert alert-success" : "alert alert-danger";
+
+            StateHasChanged();
+        });
     }
 }
