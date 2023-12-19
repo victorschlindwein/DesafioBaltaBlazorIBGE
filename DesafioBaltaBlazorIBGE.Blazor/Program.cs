@@ -40,6 +40,7 @@ builder.Services.AddScoped<GetCityByStateUseCase>();
 builder.Services.AddScoped<MessageUseCase>();
 
 builder.Services.AddSingleton<RecentlyCreatedIdService>();
+builder.Services.AddSingleton<SuccessStateService>();
 
 builder.Services.AddAuthentication(options =>
     {

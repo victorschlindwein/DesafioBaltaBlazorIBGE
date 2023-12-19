@@ -3,6 +3,7 @@
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
 @inject MessageUseCase MessageUseCase
+@inject SuccessStateService SuccessStateService
 
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
@@ -20,7 +21,7 @@
     </button>
 </div>
 
-@if (_success.HasValue)
+@if (!SuccessStateService.Success)
 {
     <div class="@_classCss" role="alert">
         @_message
@@ -84,7 +85,6 @@ else if (_searchClicked)
     private List<Ibge> Ibges = new();
     private bool _loading = false;
     private bool _searchClicked = false;
-    private bool? _success;
     private string _message = String.Empty;
     private string _classCss;
     CancellationToken cancellationToken;
@@ -124,7 +124,7 @@ else if (_searchClicked)
         await InvokeAsync(() =>
         {
             _message = message;
-            _success = success;
+            SuccessStateService.Success = success;
 
             _classCss = success ? "alert alert-success" : "alert alert-danger";
 
