@@ -2,8 +2,8 @@
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
-@inject MessageUseCase MessageUseCase
-@inject SuccessStateService SuccessStateService
+
+@inject EventStateService EventStateService
 
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
@@ -21,15 +21,20 @@
     </button>
 </div>
 
-@if (!SuccessStateService.Success)
+@if (EventStateService.Success.HasValue)
 {
-    <div class="@_classCss" role="alert">
-        @_message
-        @{
-            StateHasChanged();
-        }
-        ;
-    </div>
+    @if (EventStateService.Success == true)
+    {
+        <div class="alert alert-success" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @EventStateService.Message
+        </div>
+    }
 }
 
 @if (_loading)
@@ -85,7 +90,6 @@ else if (_searchClicked)
     private List<Ibge> Ibges = new();
     private bool _loading = false;
     private bool _searchClicked = false;
-    private string _message = String.Empty;
     private string _classCss;
     CancellationToken cancellationToken;
 
@@ -93,14 +97,13 @@ else if (_searchClicked)
     {
         _loading = true;
         _searchClicked = true;
-        
+
         try
         {
-            MessageUseCase.MessageSent += UpdateMessage;
-
             Ibges.Clear();
 
             var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
+
             if (cityId is null)
             {
                 Ibges.DefaultIfEmpty();
@@ -110,25 +113,13 @@ else if (_searchClicked)
         }
         catch (Exception ex)
         {
-            MessageUseCase.SendMessage($"Ocorreu um erro: {ex.Message}.", false);
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {
             _loading = false;
             StateHasChanged();
         }
-    }
-
-    private async void UpdateMessage(string message, bool success)
-    {
-        await InvokeAsync(() =>
-        {
-            _message = message;
-            SuccessStateService.Success = success;
-
-            _classCss = success ? "alert alert-success" : "alert alert-danger";
-
-            StateHasChanged();
-        });
     }
 }

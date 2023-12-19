@@ -3,7 +3,8 @@
 @inject ICreateCityUseCase CreateCityUseCase
 @inject NavigationManager NavigationManager
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
-@inject MessageUseCase MessageUseCase
+@inject EventStateService EventStateService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @attribute [Authorize]
@@ -40,18 +41,18 @@
         try
         {
             await CreateCityUseCase.CreateIbgeAsync(Model);
-            MessageUseCase.SendMessage("Cadastro realizado com sucesso", true);
+            EventStateService.Message = "Cadastro realizado com sucesso";
+            EventStateService.Success = true;
         }
         catch (Exception ex) 
         {
-            MessageUseCase.SendMessage($"Ocorreu um erro: {ex.Message}.", false);
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}.";
+            EventStateService.Success = false;
         }
         finally
         {
             int createdId = Model.Id;
-
             RecentlyCreatedIdService.RecentlyCreatedId = createdId;
-
             NavigationManager.NavigateTo("/cities/id");
         }
     }
