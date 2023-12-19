@@ -3,7 +3,9 @@
 @inject IUpdateCityUseCase UpdateCityUseCase
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
+@inject EventStateService EventStateService
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @attribute [Authorize]
@@ -49,17 +51,19 @@
         try
         {
             await UpdateCityUseCase.UpdateIbge(Model.Id, Model);
+
+            EventStateService.Message = "Cadastro editado com sucesso";
+            EventStateService.Success = true;
         }
-        catch
+        catch (Exception ex)
         {
-            
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {
             int createdId = Model.Id;
-
             RecentlyCreatedIdService.RecentlyCreatedId = createdId;
-
             NavigationManager.NavigateTo("/cities/id");
         }
     }

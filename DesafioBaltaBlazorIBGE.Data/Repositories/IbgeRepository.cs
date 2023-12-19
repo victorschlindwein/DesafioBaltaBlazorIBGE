@@ -1,4 +1,5 @@
-﻿using DesafioBaltaBlazorIBGE.Domain.Models;
+﻿using System.Security.Cryptography.X509Certificates;
+using DesafioBaltaBlazorIBGE.Domain.Models;
 using DesafioBaltaBlazorIBGE.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +20,10 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
 
             return ibge;
         }
-
-        public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken)
+        
+        public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip = 0, int take = 25)
         {
-            var ibges = await _context.Ibges.ToListAsync(cancellationToken);
+            var ibges = await _context.Ibges.Skip(skip).Take(take).ToListAsync(cancellationToken);
             return ibges;
         }
 

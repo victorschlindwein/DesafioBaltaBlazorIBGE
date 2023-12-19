@@ -2,12 +2,15 @@
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
+
+@inject EventStateService EventStateService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
 <CitiesMenu />
 
-<h3>Buscar pelo código IBGE</h3> 
+<h3>Buscar pelo código IBGE</h3>
 
 <div class="mb-3">
     <label class="form-label">Buscar por Cidade</label>
@@ -17,6 +20,22 @@
         BUSCAR
     </button>
 </div>
+
+@if (EventStateService.Success.HasValue)
+{
+    @if (EventStateService.Success == true)
+    {
+        <div class="alert alert-success" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+}
 
 @if (_loading)
 {
@@ -61,25 +80,30 @@ else if (RecentlyCreatedIdService.RecentlyCreatedId != 0 && Ibges.Count == 0 && 
 }
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros para essa busca</p>
+    <div class="alert alert-danger" role="alert">
+        Não foram encontrados registros para essa busca
+    </div>
 }
 
 @code {
     private Ibge Model = new();
-    private List<Ibge> Ibges = new List<Ibge>();
+    private List<Ibge> Ibges = new();
     private bool _loading = false;
     private bool _searchClicked = false;
+    private string _classCss;
     CancellationToken cancellationToken;
 
     public async Task HandleAsync(int id)
     {
         _loading = true;
         _searchClicked = true;
+
         try
         {
             Ibges.Clear();
 
             var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
+
             if (cityId is null)
             {
                 Ibges.DefaultIfEmpty();
@@ -87,9 +111,10 @@ else if (_searchClicked)
             }
             Ibges.Add(cityId);
         }
-        catch
+        catch (Exception ex)
         {
-            
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {
