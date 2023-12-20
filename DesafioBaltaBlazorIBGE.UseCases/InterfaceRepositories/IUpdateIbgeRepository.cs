@@ -1,8 +1,8 @@
 ﻿using DesafioBaltaBlazorIBGE.Domain.Models;
 
-namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+namespace DesafioBaltaBlazorIBGE.Application.InterfaceRepositories
 {
-    public interface IUpdateCityUseCase
+    public interface IUpdateIbgeRepository
     {
         Task<Ibge> UpdateIbge(int id, Ibge ibge);
     }

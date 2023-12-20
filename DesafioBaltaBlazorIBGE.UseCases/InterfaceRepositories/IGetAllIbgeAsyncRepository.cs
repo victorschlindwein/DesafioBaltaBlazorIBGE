@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using DesafioBaltaBlazorIBGE.Domain.Models;
+﻿using DesafioBaltaBlazorIBGE.Domain.Models;
 
-namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+namespace DesafioBaltaBlazorIBGE.Application.InterfaceRepositories
 {
-    public interface IGetCitiesUseCase
+    public interface IGetAllIbgeAsyncRepository
     {
         Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip, int take);
         Task<int> GetTotalItemCountAsync(CancellationToken cancellationToken);

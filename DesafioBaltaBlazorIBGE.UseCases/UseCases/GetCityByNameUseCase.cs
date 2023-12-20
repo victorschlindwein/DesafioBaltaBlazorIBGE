@@ -1,13 +1,14 @@
-﻿using DesafioBaltaBlazorIBGE.Application.Interfaces;
+﻿using DesafioBaltaBlazorIBGE.Application.InterfaceRepositories;
+using DesafioBaltaBlazorIBGE.Application.InterfaceUseCases;
 using DesafioBaltaBlazorIBGE.Domain.Models;
 
 namespace DesafioBaltaBlazorIBGE.Application.UseCases
 {
     public class GetCityByNameUseCase : IGetCityByNameUseCase
     {
-        private readonly IIbgeRepository _ibgeRepository;
+        private readonly IGetCityIbgeRepository _ibgeRepository;
 
-        public GetCityByNameUseCase(IIbgeRepository ibgeRepository)
+        public GetCityByNameUseCase(IGetCityIbgeRepository ibgeRepository)
             => _ibgeRepository = ibgeRepository;
 
         public async Task<List<Ibge>> GetCityIbge(string city, CancellationToken cancellationToken, int skip, int take)

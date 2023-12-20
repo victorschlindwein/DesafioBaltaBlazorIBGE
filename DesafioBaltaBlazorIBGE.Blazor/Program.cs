@@ -1,4 +1,5 @@
-using DesafioBaltaBlazorIBGE.Application.Interfaces;
+using DesafioBaltaBlazorIBGE.Application.InterfaceRepositories;
+using DesafioBaltaBlazorIBGE.Application.InterfaceUseCases;
 using DesafioBaltaBlazorIBGE.Application.UseCases;
 using DesafioBaltaBlazorIBGE.Blazor.Components;
 using DesafioBaltaBlazorIBGE.Blazor.Components.Account;
@@ -19,6 +20,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
 builder.Services.AddScoped<ICreateCityUseCase, CreateCityUseCase>();
 builder.Services.AddScoped<IDeleteCityUseCase, DeleteCityUseCase>();
 builder.Services.AddScoped<IUpdateCityUseCase, UpdateCityUseCase>();
@@ -26,7 +28,14 @@ builder.Services.AddScoped<IGetCitiesUseCase, GetCitiesUseCase>();
 builder.Services.AddScoped<IGetCityByIdUseCase, GetCityByIdUseCase>();
 builder.Services.AddScoped<IGetCityByNameUseCase, GetCityByNameUseCase>();
 builder.Services.AddScoped<IGetCityByStateUseCase, GetCityByStateUseCase>();
-builder.Services.AddScoped<IIbgeRepository, IbgeRepository>();
+
+builder.Services.AddScoped<ICreateIbgeAsyncRepository, CreateIbgeAsyncRepository>();
+builder.Services.AddScoped<IDeleteRepository, DeleteRepository>();
+builder.Services.AddScoped<IGetAllIbgeAsyncRepository, GetAllIbgeAsyncRepository>();
+builder.Services.AddScoped<IGetByIdAsyncRepository, GetByIdAsyncRepository>();
+builder.Services.AddScoped<IGetCityIbgeRepository, GetCityIbgeRepository>();
+builder.Services.AddScoped<IGetStateIbgeRepository, GetStateIbgeRepository>();
+builder.Services.AddScoped<IUpdateIbgeRepository, UpdateIbgeRepository>();
 
 builder.Services.AddScoped<CreateCityUseCase>();
 builder.Services.AddScoped<DeleteCityUseCase>();
