@@ -3,6 +3,8 @@
 @inject IDeleteCityUseCase DeleteCityUseCase
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject NavigationManager NavigationManager
+@inject EventStateService EventStateService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @attribute [Authorize]
@@ -31,6 +33,7 @@
     </button>
 </EditForm>
 
+
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -48,6 +51,8 @@
         try
         {
             await DeleteCityUseCase.Delete(Model.Id);
+            EventStateService.Message = "Cadastro removido com sucesso";
+            EventStateService.Success = true;
         }
         catch
         {

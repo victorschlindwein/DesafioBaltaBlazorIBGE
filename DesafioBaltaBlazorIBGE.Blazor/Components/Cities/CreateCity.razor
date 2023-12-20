@@ -11,11 +11,10 @@
 
 <CitiesMenu />
 
-<h3>Novo cadastro do IBGE</h3>
-
 <EditForm Model="@Model" OnValidSubmit="HandleSubmitAsync">
     <DataAnnotationsValidator />
-
+    
+    <label class="form-label">Novo cadastro</label>
     <div class="mb-3">
         <label class="form-label">UF</label>
         <InputText id="UF" type="text" class="form-control" @bind-Value="Model.State" />
