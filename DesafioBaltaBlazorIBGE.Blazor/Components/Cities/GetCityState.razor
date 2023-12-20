@@ -8,7 +8,7 @@
 
 <CitiesMenu />
 
-<div class="mb-3">
+<div>
     <label class="form-label">Buscar por UF</label>
     <input type="text" class="form-control" @bind="Model.State" />
     <br />
@@ -19,6 +19,7 @@
 
 @if (EventStateService.Success.HasValue)
 {
+    <br/>
     @if (EventStateService.Success == true)
     {
         <div class="alert alert-success" role="alert">
@@ -39,11 +40,15 @@
 }
 else if (Ibges.Any())
 {
+    <br />
+
     <div>
         Página @currentPage de @totalPages
-        <button @onclick="() => ChangePage(-1)" class="btn btn-secondary" disabled="@(currentPage == 1)">Anterior</button>
-        <button @onclick="() => ChangePage(1)" class="btn btn-secondary" disabled="@(currentPage == totalPages)">Próxima</button>
+
+        <button @onclick="() => ChangePage(-1)" class="btn btn-dark" disabled="@(currentPage == 1)">Anterior</button>
+        <button @onclick="() => ChangePage(1)" class="btn btn-dark" disabled="@(currentPage == totalPages)">Próxima</button>
     </div>
+    <br />
 
     <table class="table">
         <thead>
@@ -51,7 +56,7 @@ else if (Ibges.Any())
                 <th>Código IBGE</th>
                 <th>UF</th>
                 <th>Cidade</th>
-                <th></th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>

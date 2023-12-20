@@ -34,8 +34,8 @@ else
     <div class="align-content-center">
         Página @currentPage de @totalPages
 
-        <button @onclick="() => ChangePage(-1)" class="btn btn-secondary" disabled="@(currentPage == 1)">Anterior</button>
-        <button @onclick="() => ChangePage(1)" class="btn btn-secondary" disabled="@(currentPage == totalPages)">Próxima</button>
+        <button type="button" @onclick="() => ChangePage(-1)" class="btn btn-dark" disabled="@(currentPage == 1)">Anterior</button>
+        <button type="button" @onclick="() => ChangePage(1)" class="btn btn-dark" disabled="@(currentPage == totalPages)">Próxima</button>
 
     </div>
     
@@ -45,7 +45,7 @@ else
                 <th>Código IBGE</th>
                 <th>UF</th>
                 <th>Cidade</th>
-                <th></th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
