@@ -1,34 +1,44 @@
 ﻿@rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
+@inject EventStateService EventStateService
+
 <div class="mb-3">
     <a href="/cities/list">
-        <button type="button" class="btn btn-light">
+        <button type="button" class="btn btn-light" @onclick="CleanEventState">
             Listar
         </button>
     </a>
 
     <a href="/cities/state">
-        <button type="button" class="btn btn-light" >
+        <button type="button" class="btn btn-light" @onclick="CleanEventState">
             Buscar por UF
         </button>
     </a>
 
     <a href="/cities/city">
-        <button type="button" class="btn btn-light" >
+        <button type="button" class="btn btn-light" @onclick="CleanEventState">
             Buscar por Cidade
         </button>
     </a>
 
     <a href="/cities/id">
-        <button type="button" class="btn btn-light" >
+        <button type="button" class="btn btn-light" @onclick="CleanEventState">
             Buscar por código IBGE
         </button>
     </a>
 
     <a href="/cities/create">
-        <button type="button" class="btn btn-light" >
+        <button type="button" class="btn btn-light" @onclick="CleanEventState">
             Cadastrar
         </button>
     </a>
 </div>
+
+@code
+{
+    private void CleanEventState()
+    {
+        EventStateService.Success = null;
+    }
+}

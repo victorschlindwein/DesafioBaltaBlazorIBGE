@@ -2,7 +2,6 @@
 
 @inject IGetCityByIdUseCase GetCityByIdUseCase
 @inject RecentlyCreatedIdService RecentlyCreatedIdService
-
 @inject EventStateService EventStateService
 
 @rendermode InteractiveServer
@@ -10,10 +9,8 @@
 
 <CitiesMenu />
 
-<h3>Buscar pelo código IBGE</h3>
-
 <div class="mb-3">
-    <label class="form-label">Buscar por Cidade</label>
+    <label class="form-label">Buscar pelo Código IBGE</label>
     <input type="number" class="form-control" @bind="Model.Id" />
     <br />
     <button class="btn btn-info" @onclick="() => HandleAsync(Model.Id) ">
@@ -80,9 +77,8 @@ else if (RecentlyCreatedIdService.RecentlyCreatedId != 0 && Ibges.Count == 0 && 
 }
 else if (_searchClicked)
 {
-    <div class="alert alert-danger" role="alert">
-        Não foram encontrados registros para essa busca
-    </div>
+    EventStateService.Message = "Não foram encontrados dados para sua busca.";
+    EventStateService.Success = false;
 }
 
 @code {
@@ -93,6 +89,11 @@ else if (_searchClicked)
     CancellationToken cancellationToken;
 
     public async Task HandleAsync(int id)
+    {
+        HandleSearchAsync(id);
+    }
+
+    public async Task HandleSearchAsync(int id)
     {
         _loading = true;
         _searchClicked = true;
