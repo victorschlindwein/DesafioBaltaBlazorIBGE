@@ -1,7 +1,6 @@
 ﻿using DesafioBaltaBlazorIBGE.Domain.Models;
-using System.Threading.Tasks;
 
-namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+namespace DesafioBaltaBlazorIBGE.Application.InterfaceUseCases
 {
     public interface IGetCityByNameUseCase
     {

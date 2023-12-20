@@ -1,12 +1,13 @@
-﻿using DesafioBaltaBlazorIBGE.Application.Interfaces;
+﻿using DesafioBaltaBlazorIBGE.Application.InterfaceRepositories;
+using DesafioBaltaBlazorIBGE.Application.InterfaceUseCases;
 
 namespace DesafioBaltaBlazorIBGE.Application.UseCases
 {
     public class DeleteCityUseCase : IDeleteCityUseCase
     {
-        private readonly IIbgeRepository _ibgeRepository;
+        private readonly IDeleteRepository _ibgeRepository;
 
-        public DeleteCityUseCase(IIbgeRepository ibgeRepository)
+        public DeleteCityUseCase(IDeleteRepository ibgeRepository)
             => _ibgeRepository = ibgeRepository;
 
         public async Task<bool> Delete(int id)

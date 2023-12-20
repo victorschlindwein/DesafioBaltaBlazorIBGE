@@ -1,8 +1,8 @@
 ﻿using DesafioBaltaBlazorIBGE.Domain.Models;
 
-namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+namespace DesafioBaltaBlazorIBGE.Application.InterfaceRepositories
 {
-    public interface IGetCityByStateUseCase
+    public interface IGetStateIbgeRepository
     {
         Task<List<Ibge>> GetStateIbge(string state, CancellationToken cancellationToken, int skip, int take);
         Task<int> GetTotalStateCountAsync(string state, CancellationToken cancellationToken);

@@ -1,4 +1,4 @@
-﻿namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+﻿namespace DesafioBaltaBlazorIBGE.Application.InterfaceUseCases
 {
     public interface IDeleteCityUseCase
     {

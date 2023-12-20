@@ -1,6 +1,6 @@
 ﻿using DesafioBaltaBlazorIBGE.Domain.Models;
 
-namespace DesafioBaltaBlazorIBGE.Application.Interfaces
+namespace DesafioBaltaBlazorIBGE.Application.InterfaceUseCases
 {
     public interface ICreateCityUseCase
     {
