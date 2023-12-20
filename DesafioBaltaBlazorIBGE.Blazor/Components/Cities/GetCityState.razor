@@ -1,6 +1,8 @@
 ﻿@page "/cities/state"
 
 @inject IGetCityByStateUseCase GetCityByStateUseCase
+@inject EventStateService EventStateService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
@@ -14,6 +16,22 @@
         BUSCAR
     </button>
 </div>
+
+@if (EventStateService.Success.HasValue)
+{
+    @if (EventStateService.Success == true)
+    {
+        <div class="alert alert-success" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+}
 
 @if (_loading)
 {
@@ -59,12 +77,11 @@ else if (Ibges.Any())
 }
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros para essa busca</p>
+    EventStateService.Message = "Não foram encontrados registros para essa busca";
+    EventStateService.Success = false;
 }
 
-
 @code {
-
     public IEnumerable<Ibge> Ibges { get; set; } = Enumerable.Empty<Ibge>();
     private Ibge? Model = new();
     private bool _loading = false;
@@ -77,6 +94,10 @@ else if (_searchClicked)
 
     public async Task GetByStateAsync(string state)
     {
+        if (EventStateService.Success == false)
+        {
+            EventStateService.Success = null;
+        }
         _loading = true;
         _searchClicked = true;
         StateHasChanged();
@@ -87,18 +108,20 @@ else if (_searchClicked)
 
             await LoadData();
         }
-        catch
+        catch (Exception ex)
         {
-            
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {
             _loading = false;
             StateHasChanged();
         }
+
     }
 
-    private void ChangePage(int change)
+    private async void ChangePage(int change)
     {
         currentPage += change;
         if (currentPage < 1)
@@ -110,7 +133,7 @@ else if (_searchClicked)
             currentPage = totalPages;
         }
 
-        LoadData();
+        await LoadData();
     }
 
     private async Task LoadData()

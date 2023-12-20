@@ -105,8 +105,18 @@ else
 
     private async Task LoadData()
     {
-        Ibges = await GetCitiesUseCase.GetAllIbgeAsync(cancellationToken, (currentPage - 1) * pageSize, pageSize);
-
-        StateHasChanged();
+        try
+        {
+            Ibges = await GetCitiesUseCase.GetAllIbgeAsync(cancellationToken, (currentPage - 1) * pageSize, pageSize);
+        }
+        catch (Exception ex)
+        {
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
+        }
+        finally
+        {
+            StateHasChanged();
+        }
     }
 }

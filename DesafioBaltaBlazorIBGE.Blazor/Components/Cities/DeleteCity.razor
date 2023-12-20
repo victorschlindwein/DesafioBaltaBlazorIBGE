@@ -33,7 +33,6 @@
     </button>
 </EditForm>
 
-
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -54,9 +53,10 @@
             EventStateService.Message = "Cadastro removido com sucesso";
             EventStateService.Success = true;
         }
-        catch
+        catch (Exception ex)
         {
-
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {

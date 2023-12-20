@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Data.Entity.Core.Metadata.Edm;
+using System.Security.Cryptography.X509Certificates;
 using DesafioBaltaBlazorIBGE.Domain.Models;
 using DesafioBaltaBlazorIBGE.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using DesafioBaltaBlazorIBGE.Domain.Services;
 
 
 namespace DesafioBaltaBlazorIBGE.Data.Repositories
@@ -40,6 +42,10 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
 
         public async Task<List<Ibge>> GetCityIbge(string city, CancellationToken cancellationToken, int skip = 0, int take = 25)
         {
+            if (city == "")
+            {
+                return new List<Ibge>();
+            }
             var cityIbgeList = await _context.Ibges.Where(x => x.City.Contains(city)).Skip(skip).Take(take).ToListAsync(cancellationToken);
             return cityIbgeList;
         }
@@ -51,6 +57,10 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
 
         public async Task<List<Ibge>> GetStateIbge(string state, CancellationToken cancellationToken, int skip = 0, int take = 25)
         {
+            if (state == "")
+            {
+                return new List<Ibge>();
+            }
             var stateIbgeList = await _context.Ibges.Where(x => x.State.Contains(state)).Skip(skip).Take(take).ToListAsync(cancellationToken);
             return stateIbgeList;
         }
@@ -59,8 +69,6 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
         {
             return await _context.Ibges.Where(x => x.State.Contains(state)).CountAsync(cancellationToken);
         }
-
-
 
         public async Task<Ibge> UpdateIbge(int id, Ibge ibge)
         {
