@@ -12,5 +12,10 @@ namespace DesafioBaltaBlazorIBGE.Application.UseCases
 
         public async Task<List<Ibge>> GetAllIbgeAsync(CancellationToken cancellationToken, int skip, int take)
             => await _ibgeRepository.GetAllIbgeAsync(cancellationToken, skip, take);
+
+        public async Task<int> GetTotalItemCountAsync(CancellationToken cancellationToken)
+        {
+            return await _ibgeRepository.GetTotalItemCountAsync(cancellationToken);
+        }
     }
 }

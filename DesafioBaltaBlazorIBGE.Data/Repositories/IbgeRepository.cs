@@ -27,23 +27,40 @@ namespace DesafioBaltaBlazorIBGE.Data.Repositories
             return ibges;
         }
 
+        public async Task<int> GetTotalItemCountAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Ibges.CountAsync(cancellationToken);
+        }
+
         public async Task<Ibge> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             var data = await _context.Ibges.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
             return data;
         }
 
-        public async Task<List<Ibge>> GetCityIbge(string city, CancellationToken cancellationToken)
+        public async Task<List<Ibge>> GetCityIbge(string city, CancellationToken cancellationToken, int skip = 0, int take = 25)
         {
-            var cityIbgeList = await _context.Ibges.Where(x => x.City.Contains(city)).ToListAsync(cancellationToken);
+            var cityIbgeList = await _context.Ibges.Where(x => x.City.Contains(city)).Skip(skip).Take(take).ToListAsync(cancellationToken);
             return cityIbgeList;
         }
 
-        public async Task<List<Ibge>> GetStateIbge(string state, CancellationToken cancellationToken)
+        public async Task<int> GetTotalCityCountAsync(string city, CancellationToken cancellationToken)
         {
-            var stateIbgeList = await _context.Ibges.Where(x => x.State.Contains(state)).ToListAsync(cancellationToken);
+            return await _context.Ibges.Where(x => x.City.Contains(city)).CountAsync(cancellationToken);
+        }
+
+        public async Task<List<Ibge>> GetStateIbge(string state, CancellationToken cancellationToken, int skip = 0, int take = 25)
+        {
+            var stateIbgeList = await _context.Ibges.Where(x => x.State.Contains(state)).Skip(skip).Take(take).ToListAsync(cancellationToken);
             return stateIbgeList;
         }
+
+        public async Task<int> GetTotalStateCountAsync(string state, CancellationToken cancellationToken)
+        {
+            return await _context.Ibges.Where(x => x.State.Contains(state)).CountAsync(cancellationToken);
+        }
+
+
 
         public async Task<Ibge> UpdateIbge(int id, Ibge ibge)
         {
