@@ -79,6 +79,7 @@ else if (_searchClicked)
 {
     EventStateService.Message = "Não foram encontrados dados para sua busca.";
     EventStateService.Success = false;
+
 }
 
 @code {
@@ -86,11 +87,18 @@ else if (_searchClicked)
     private List<Ibge> Ibges = new();
     private bool _loading = false;
     private bool _searchClicked = false;
+
     CancellationToken cancellationToken;
 
-    public async Task HandleAsync(int id)
+    public Task HandleAsync(int id)
     {
-        HandleSearchAsync(id);
+
+        if (EventStateService.Success == false)
+        {
+            EventStateService.Success = null;
+        }
+
+        return HandleSearchAsync(id);
     }
 
     public async Task HandleSearchAsync(int id)
@@ -103,7 +111,6 @@ else if (_searchClicked)
             Ibges.Clear();
 
             var cityId = await GetCityByIdUseCase.GetByIdAsync(id, cancellationToken);
-
             if (cityId is null)
             {
                 Ibges.DefaultIfEmpty();

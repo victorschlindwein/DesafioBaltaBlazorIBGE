@@ -1,6 +1,8 @@
 ﻿@page "/cities/city"
 
 @inject IGetCityByNameUseCase GetCityByNameUseCase
+@inject EventStateService EventStateService
+
 @rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 
@@ -14,6 +16,22 @@
         BUSCAR
     </button>
 </div>
+
+@if (EventStateService.Success.HasValue)
+{
+    @if (EventStateService.Success == true)
+    {
+        <div class="alert alert-success" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @EventStateService.Message
+        </div>
+    }
+}
 
 @if (_loading)
 {
@@ -29,37 +47,38 @@ else if (Ibges.Any())
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Código IBGE</th>
-            <th>UF</th>
-            <th>Cidade</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Código IBGE</th>
+                <th>UF</th>
+                <th>Cidade</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Ibges)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.State</td>
-                <td>@item.City</td>
-                <td>
-                    <a href="/cities/edit/@item.Id" class="btn btn-primary">
-                        EDITAR
-                    </a>
-                    &nbsp;
-                    <a href="/cities/delete/@item.Id" class="btn btn-danger">
-                        EXCLUIR
-                    </a>
-                </td>
-            </tr>
-        }
+            @foreach (var item in Ibges)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.State</td>
+                    <td>@item.City</td>
+                    <td>
+                        <a href="/cities/edit/@item.Id" class="btn btn-primary">
+                            EDITAR
+                        </a>
+                        &nbsp;
+                        <a href="/cities/delete/@item.Id" class="btn btn-danger">
+                            EXCLUIR
+                        </a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 else if (_searchClicked)
 {
-    <p>Não foram encontrados registros para essa busca</p>
+    EventStateService.Message = "Não foram encontrados registros para essa busca";
+    EventStateService.Success = false;
 }
 
 @code {
@@ -75,6 +94,11 @@ else if (_searchClicked)
 
     public async Task GetByCityAsync(string name)
     {
+
+        if (EventStateService.Success == false)
+        {
+            EventStateService.Success = null;
+        }
         _loading = true;
         _searchClicked = true;
         StateHasChanged();
@@ -85,18 +109,20 @@ else if (_searchClicked)
 
             await LoadData();
         }
-        catch
+        catch (Exception ex)
         {
-            
+            EventStateService.Message = $"Ocorreu um erro: {ex.Message}";
+            EventStateService.Success = false;
         }
         finally
         {
             _loading = false;
             StateHasChanged();
         }
+
     }
 
-    private void ChangePage(int change)
+    private async void ChangePage(int change)
     {
         currentPage += change;
         if (currentPage < 1)
@@ -108,7 +134,7 @@ else if (_searchClicked)
             currentPage = totalPages;
         }
 
-        LoadData();
+        await LoadData();
     }
 
     private async Task LoadData()
