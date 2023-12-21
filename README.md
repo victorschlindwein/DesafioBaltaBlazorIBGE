@@ -10,6 +10,7 @@ Esse projeto tem como objetivo servir um front-end criado em Blazor 8 para traze
 ## Como executar o projeto localmente:
 - Realizar o git clone do projeto
 - Editar a connection string no ``appsettings.json``.
+- Rodar as migrations ``dotnet ef database update``.
 
 ## Arquitetura:
 - Utilizamos arquitetura Clean Architecture para construção do projeto.
